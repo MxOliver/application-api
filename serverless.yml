@@ -1,11 +1,19 @@
-service: apollo-lambda
+service: highfives-application-api
+plugins:
+  - serverless-webpack
+  - serverless-offline
+custom:
+  webpack:
+    webpackConfig: ./webpack.config.js
+    includeModules: true
 provider:
   name: aws
+  stage: dev
   region: us-west-1
   runtime: nodejs6.10
 functions:
   graphql:
-    handler: graphql.graphqlHandler
+    handler: handler.graphqlHandler
     events:
       - http:
           path: graphql
