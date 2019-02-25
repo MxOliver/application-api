@@ -4,7 +4,21 @@
   "description": "The GraphQL API for the High Fives Application Process",
   "main": "index.js",
   "scripts": {
-    "deploy": "serverless deploy"
+    "deploy": "serverless deploy",
+    "format": "npm run format:prettier",
+    "format:prettier": "node_modules/.bin/prettier --config prettier.config.js \"src/**/*.{ts,css,less,js}\" --write",
+    "format-test": "npm run format-test:prettier",
+    "format-test:prettier": "node_modules/.bin/prettier --config prettier.config.js \"src/**/*.{ts,css,less,js}\" -l"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "node_modules/.bin/lint-staged"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.{ts,css,less,js}": [
+      "prettier --config prettier.config.js -l"
+    ]
   },
   "repository": {
     "type": "git",
@@ -26,6 +40,9 @@
   "devDependencies": {
     "@babel/core": "^7.3.3",
     "babel-loader": "^8.0.5",
+    "husky": "^1.3.1",
+    "lint-staged": "^8.1.4",
+    "prettier": "^1.16.4",
     "serverless": "^1.38.0",
     "serverless-offline": "^4.6.0",
     "serverless-webpack": "^5.2.0",
